@@ -4,6 +4,7 @@ version '1.0-SNAPSHOT'
 buildscript {
     ext.kotlin_version = '1.6.10'
     repositories {
+
         google()
         mavenCentral()
     }
@@ -16,6 +17,9 @@ buildscript {
 
 rootProject.allprojects {
     repositories {
+        flatDir {
+            dirs project(':qr_code_scanner').file('libs')
+        }
         google()
         mavenCentral()
     }
@@ -47,10 +51,14 @@ android {
     }
 }
 
+
 dependencies {
+//    implementation fileTree(dir: 'libs', include: ['*.aar'])
+    api(name: 'zxing-android-embedded-release', ext: 'aar')
+
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation('com.journeyapps:zxing-android-embedded:4.3.0') { transitive = false }
+//    implementation('com.journeyapps:zxing-android-embedded:4.3.0') { transitive = false }
     implementation 'androidx.appcompat:appcompat:1.4.1'
-    implementation 'com.google.zxing:core:3.4.1'
+//    implementation 'com.google.zxing:core:3.4.1'
     coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.1.5'
 }
